@@ -1,0 +1,189 @@
+\documentclass[3p,times,procedia]{elsarticle}
+
+\input{header.tex}
+
+
+\begin{document}
+\begin{frontmatter}
+
+%% Title, authors and addresses
+
+%% use the tnoteref command within \title for footnotes;
+%% use the tnotetext command for the associated footnote;
+%% use the fnref command within \author or \address for footnotes;
+%% use the fntext command for the associated footnote;
+%% use the corref command within \author for corresponding author footnotes;
+%% use the cortext command for the associated footnote;
+%% use the ead command for the email address,
+%% and the form \ead[url] for the home page:
+%%
+%% \title{Title\tnoteref{label1}}
+%% \tnotetext[label1]{}
+%% \author{Name\corref{cor1}\fnref{label2}}
+%% \ead{email address}
+%% \ead[url]{home page}
+%% \fntext[label2]{}
+%% \cortext[cor1]{}
+%% \address{Address\fnref{label3}}
+%% \fntext[label3]{}
+
+%\dochead{}%
+
+\title{An agent-based model for modal report in public transport}
+
+%% use optional labels to link authors explicitly to addresses:
+%% \author[label1,label2]{<author name>}
+%% \address[label1]{<address>}
+%% \address[label2]{<address>}
+
+
+
+\author[a]{First Author} 
+\author[b]{Second Author}
+\author[a,b]{Third Author\corref{cor1}}
+
+\address[a]{First affiliation, Address, City and Postcode, Country}
+\address[b]{Second affiliation, Address, City and Postcode, Country}
+
+\begin{abstract}
+%% Text of abstract
+Insert here your abstract text.
+\end{abstract}
+
+\begin{keyword}
+Type your keywords here, separated by semicolons ; 
+
+
+%% keywords here, in the form: keyword \sep keyword
+
+%% PACS codes here, in the form: \PACS code \sep code
+
+%% MSC codes here, in the form: \MSC code \sep code
+%% or \MSC[2008] code \sep code (2000 is the default)
+
+\end{keyword}
+\cortext[cor1]{Corresponding author. Tel.: +0-000-000-0000 ; fax: +0-000-000-0000.}
+\end{frontmatter}
+
+%\correspondingauthor[*]{Corresponding author. Tel.: +0-000-000-0000 ; fax: +0-000-000-0000.}
+\email{author@institute.xxx}
+
+%%
+%% Start line numbering here if you want
+%%
+% \linenumbers
+
+%% main text
+
+%\enlargethispage{-7mm}
+\section{Main Text}
+\label{main}
+
+
+%Dans les transports en communs aussi les usagers doivent faire des choix en un temps limité et avec des informations limitées. Ils subissent régulièrement des perturbations. Il s’enclenche alors un processus de décision complexe qui va aboutir à des comportements complexes. Le travail de Xavier Brisbois1 notamment a contribué à montrer que l'analyse choix de report modal à long terme ne peut se dispenser d'une analyse des comportements, de la dimension cognitive du choix en complément de variables socio-économiques qui n’expliquentpas nécessairement les comportements.
+
+\cite{brisbois2010processus}
+
+%En s’inspirant des modèles d’information voyageur comme ceux de Leng et Corman2 qui explorent les effets de l’information voyageur sur les temps de trajet, nous nous posons la question de la complémentarité de ces modélisations multiagents avec des enquêtes de préférences déclarées. 
+
+\cite{leng2020role}
+
+large scale reproducible Matsim: \cite{horl2020reproducible}
+
+
+Agent-based models are used in similar studies of modal share, such as by \cite{baindur2011agent} for freight. \cite{raney2003agent} describe an application of the Matsim model.
+
+\section{Declared preferences survey}
+
+
+\section{Model description}
+
+
+\section{Model exploration}
+
+
+\section{Discussion}
+
+
+%% References
+%%
+%% Following citation commands can be used in the body text:
+%% Usage of \cite is as follows:
+%%   \cite{key}         ==>>  [#]
+%%   \cite[chap. 2]{key} ==>> [#, chap. 2]
+%%
+
+%The citation must be used in following style: \cite{article-minimal} \cite{article-full} \cite{article-crossref} \cite{whole-journal}.
+%% References with BibTeX database:
+
+%
+\bibliographystyle{elsarticle-harv}
+\bibliography{biblio.bib}
+
+\clearpage
+
+
+\end{document}
+
+%%%%
+% Template
+
+%
+%\begin{figure}[t]\vspace*{4pt}
+%%\centerline{\includegraphics{fx1}\hspace*{5mm}\includegraphics{fx1}}
+%\centerline{\includegraphics{gr1}}
+%\caption{(a) first picture; (b) second picture.}
+%\end{figure}
+%
+%\begin{table}[h]
+%\caption{An example of a table.}
+%\begin{tabular*}{\hsize}{@{\extracolsep{\fill}}lll@{}}
+%\toprule
+%An example of a column heading & Column A ({\it{t}}) & Column B ({\it{t}})\\
+%\colrule
+%And an entry &   1 &  2\\
+%And another entry  & 3 &  4\\
+%And another entry &  5 &  6\\
+%\botrule
+%\end{tabular*}
+%\end{table}
+%
+
+
+
+%
+%\begin{equation}
+%\begin{array}{lcl}
+%\displaystyle X_r &=& \displaystyle\dot{Q}^{''}_{rad}\left/\left(\dot{Q}^{''}_{rad} + \dot{Q}^{''}_{conv}\right)\right.\\[6pt]
+%\displaystyle \rho &=& \displaystyle\frac{\vec{E}}{J_c(T={\rm const.})\cdot\left(P\cdot\left(\displaystyle\frac{\vec{E}}{E_c}\right)^m+(1-P)\right)}
+%\end{array}
+%\end{equation}
+%
+%
+
+
+
+%% The Appendices part is started with the command \appendix;
+%% appendix sections are then done as normal sections
+%% \appendix
+
+%% \section{}
+%% \label{}
+%
+%\appendix
+%\section{An example appendix}
+%Authors including an appendix section should do so before References section. Multiple appendices should all have headings in the style used above. They will automatically be ordered A, B, C etc.
+%
+%\subsection{Example of a sub-heading within an appendix}
+%There is also the option to include a subheading within the Appendix if you wish.
+%
+
+
+
+%
+%
+%\section*{Acknowledgements}
+%
+%Acknowledgements and Reference heading should be left justified, bold, with the first letter capitalized but have no numbers. Text below continues as normal.
+%
+
