@@ -23,7 +23,7 @@
 \end{abstract}
 
 \begin{keyword}
-Modal shift \sep Public transport disruption \sep Agent-based modeling
+Modal shift \sep Public transport disruption \sep Agent-based modeling \sep Model exploration
 \end{keyword}
 \cortext[cor1]{Corresponding author.}
 \end{frontmatter}
@@ -43,20 +43,22 @@ Modal shift \sep Public transport disruption \sep Agent-based modeling
 
 %Dans les transports en communs aussi les usagers doivent faire des choix en un temps limité et avec des informations limitées. Ils subissent régulièrement des perturbations. Il s’enclenche alors un processus de décision complexe qui va aboutir à des comportements complexes. Le travail de Xavier Brisbois1 notamment a contribué à montrer que l'analyse choix de report modal à long terme ne peut se dispenser d'une analyse des comportements, de la dimension cognitive du choix en complément de variables socio-économiques qui n’expliquentpas nécessairement les comportements.
 %En s’inspirant des modèles d’information voyageur comme ceux de Leng et Corman2 qui explorent les effets de l’information voyageur sur les temps de trajet, nous nous posons la question de la complémentarité de ces modélisations multiagents avec des enquêtes de préférences déclarées. 
-\cite{brisbois2010processus}
 
-\cite{leng2020role}
+Disruptions in public transport networks are not rare events, often worsened by an increased complexity of these networks and their management \citep{dekker2018next}. Network resilience is then tightly linked to patterns of modal shift \cite{stamos2015impact}, and a better understanding of these is crucial both from a theoretical and operational viewpoint. In that context, users have to make decisions in a limited time and under partial information. The study of modal shift under disruption is therefore improved when taking into account users behavior and a detailed representation of users cognition \citep{brisbois2010processus}. More particularly, the role of information provided in real time can in some cases become crucial, as rerouting may in fact increase the congestion in other parts of the network and ultimately increase the average travel time \citep{chatterjee2002driver,chorus2006travel}.
 
-large scale reproducible Matsim: \cite{horl2020reproducible}
+To study mechanisms linking information given to users with modal shift, and more generally the evolution of multi-modal network flows under disruptions, agent-based modeling has been highlighted as a relevant approach \citep{leng2020role}. For example, \cite{leng2020issue} show that the issue time of information has a significant impact on the total congestion. Agent-based models are used in similar studies of modal share, such as by \cite{baindur2011agent} for freight. \cite{raney2003agent} describe an application of the Matsim model, which is a data-driven agent-based and activity-based transport model, to a large sample of Switzerland transport network. The Matsim model can be applied at large scales in a reproducible manner, such as in the case of Ile-de-France illustrated by \cite{horl2020reproducible}.
+
+Large transport agent-based models such as Matsim however require an extensive parametrisation on real data, are difficult to systematically validate given their runtime and large parameter space, and despite their high modularity can be tuned only to some extent regarding a precise description of users behavior in public transport and their interactions with a network disruption. This contribution therefore proposes to 
 
 
-Agent-based models are used in similar studies of modal share, such as by \cite{baindur2011agent} for freight. \cite{raney2003agent} describe an application of the Matsim model.
+
 
 \section{Declared preferences survey}
 
 
 \section{Model description}
 
+\cite{martin2016strategies} % heterogeneity in user behavior
 
 \section{Model exploration}
 
