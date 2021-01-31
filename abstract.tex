@@ -8,65 +8,27 @@
 
 %% Title, authors and addresses
 
-%% use the tnoteref command within \title for footnotes;
-%% use the tnotetext command for the associated footnote;
-%% use the fnref command within \author or \address for footnotes;
-%% use the fntext command for the associated footnote;
-%% use the corref command within \author for corresponding author footnotes;
-%% use the cortext command for the associated footnote;
-%% use the ead command for the email address,
-%% and the form \ead[url] for the home page:
-%%
-%% \title{Title\tnoteref{label1}}
-%% \tnotetext[label1]{}
-%% \author{Name\corref{cor1}\fnref{label2}}
-%% \ead{email address}
-%% \ead[url]{home page}
-%% \fntext[label2]{}
-%% \cortext[cor1]{}
-%% \address{Address\fnref{label3}}
-%% \fntext[label3]{}
+\title{An agent-based model for modal shift in public transport}
 
-%\dochead{}%
+\author[a]{Thibaut Barbet}
+\author[a]{Amine Nacer-Weill}
+\author[a]{Changtao Yang}
+\author[b]{Juste Raimbault\corref{cor1}}
 
-\title{An agent-based model for modal report in public transport}
-
-%% use optional labels to link authors explicitly to addresses:
-%% \author[label1,label2]{<author name>}
-%% \address[label1]{<address>}
-%% \address[label2]{<address>}
-
-
-
-\author[a]{First Author} 
-\author[b]{Second Author}
-\author[a,b]{Third Author\corref{cor1}}
-
-\address[a]{First affiliation, Address, City and Postcode, Country}
-\address[b]{Second affiliation, Address, City and Postcode, Country}
+\address[a]{Ecole des Ponts ParisTech, Champs-sur-Marne, France}
+\address[b]{CASA, University College London, London, United Kingdom}
 
 \begin{abstract}
-%% Text of abstract
-Insert here your abstract text.
+
 \end{abstract}
 
 \begin{keyword}
-Type your keywords here, separated by semicolons ; 
-
-
-%% keywords here, in the form: keyword \sep keyword
-
-%% PACS codes here, in the form: \PACS code \sep code
-
-%% MSC codes here, in the form: \MSC code \sep code
-%% or \MSC[2008] code \sep code (2000 is the default)
-
+Modal shift \sep Public transport disruption \sep Agent-based modeling
 \end{keyword}
-\cortext[cor1]{Corresponding author. Tel.: +0-000-000-0000 ; fax: +0-000-000-0000.}
+\cortext[cor1]{Corresponding author.}
 \end{frontmatter}
 
-%\correspondingauthor[*]{Corresponding author. Tel.: +0-000-000-0000 ; fax: +0-000-000-0000.}
-\email{author@institute.xxx}
+\email{j.raimbault@ucl.ac.uk}
 
 %%
 %% Start line numbering here if you want
@@ -76,15 +38,12 @@ Type your keywords here, separated by semicolons ;
 %% main text
 
 %\enlargethispage{-7mm}
-\section{Main Text}
-\label{main}
+\section{Introduction}
 
 
 %Dans les transports en communs aussi les usagers doivent faire des choix en un temps limité et avec des informations limitées. Ils subissent régulièrement des perturbations. Il s’enclenche alors un processus de décision complexe qui va aboutir à des comportements complexes. Le travail de Xavier Brisbois1 notamment a contribué à montrer que l'analyse choix de report modal à long terme ne peut se dispenser d'une analyse des comportements, de la dimension cognitive du choix en complément de variables socio-économiques qui n’expliquentpas nécessairement les comportements.
-
-\cite{brisbois2010processus}
-
 %En s’inspirant des modèles d’information voyageur comme ceux de Leng et Corman2 qui explorent les effets de l’information voyageur sur les temps de trajet, nous nous posons la question de la complémentarité de ces modélisations multiagents avec des enquêtes de préférences déclarées. 
+\cite{brisbois2010processus}
 
 \cite{leng2020role}
 
