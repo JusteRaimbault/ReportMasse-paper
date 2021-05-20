@@ -10,9 +10,9 @@
 
 \title{An agent-based model for modal shift in public transport}
 
+\author[a]{Thibaut Barbet}
 \author[a]{Amine Nacer-Weill}
 \author[a]{Changtao Yang}
-\author[a]{Thibaut Barbet}
 \author[b]{Juste Raimbault\corref{cor1}}
 
 \address[a]{Ecole des Ponts ParisTech, Champs-sur-Marne, France}
@@ -41,17 +41,17 @@ Modal shift \sep Public transport disruption \sep Agent-based modeling \sep Mode
 %\section{Introduction}
 
 
-%Dans les transports en communs aussi les usagers doivent faire des choix en un temps limité et avec des informations limitées. Ils subissent régulièrement des perturbations. Il s’enclenche alors un processus de décision complexe qui va aboutir à des comportements complexes. Le travail de Xavier Brisbois1 notamment a contribué à montrer que l'analyse choix de report modal à long terme ne peut se dispenser d'une analyse des comportements, de la dimension cognitive du choix en complément de variables socio-économiques qui n’expliquentpas nécessairement les comportements.
-%En s’inspirant des modèles d’information voyageur comme ceux de Leng et Corman2 qui explorent les effets de l’information voyageur sur les temps de trajet, nous nous posons la question de la complémentarité de ces modélisations multiagents avec des enquêtes de préférences déclarées. 
 
 Disruptions in public transport networks are not rare events, often worsened by an increased complexity of these networks and their management \citep{dekker2018next}. Network resilience is then tightly linked to patterns of modal shift \cite{stamos2015impact}, and a better understanding of these is crucial both from a theoretical and operational viewpoint. In that context, users have to make decisions in a limited time and under partial information. The study of modal shift under disruption is therefore improved when taking into account users behavior and a detailed representation of users cognition \citep{brisbois2010processus}. More particularly, the role of information provided in real time can in some cases become crucial, as rerouting may in fact increase the congestion in other parts of the network and ultimately increase the average travel time \citep{chatterjee2002driver,chorus2006travel}.
+
+% check https://www.mdpi.com/2071-1050/11/6/1765
 
 To study mechanisms linking information given to users with modal shift, and more generally the evolution of multi-modal network flows under disruptions, agent-based modeling has been highlighted as a relevant approach \citep{leng2020role}. For example, \cite{leng2020issue} show that the issue time of information has a significant impact on the total congestion. Agent-based models are used in similar studies of modal share, such as by \cite{baindur2011agent} for freight. \cite{raney2003agent} describe an application of the Matsim model, which is a data-driven agent-based and activity-based transport model, to a large sample of Switzerland transport network. The Matsim model can be applied at large scales in a reproducible manner, such as in the case of Ile-de-France illustrated by \cite{horl2020reproducible}.
 
 Large transport agent-based models such as Matsim however require an extensive parametrisation on real data, are difficult to systematically validate given their runtime and large parameter space, and despite their high modularity can be tuned only to some extent regarding a precise description of users behavior in public transport and their interactions with a network disruption. This paper therefore proposes to introduce a simple and stylised agent-based model to understand the role of information and user behavior in modal shift under disruptions in public transport. With a reduced computational complexity but also parameter space to explore, under limited requirements for data, such a model can be used to systematically explore if some qualitative stylised facts are robustly found under different scenario, and possibly extended into a decision-making tool. Our contribution is threefold: (i) we contextualize the construction of the model with a reduced stated preferences survey, applied on a case study in the Parisian public transport network on a specific segment often subject to disruption; (ii) we introduce the simple agent-based model as an open-source tool, which can be extended or modified to test concurrent hypotheses on user behavior; (iii) we proceed to a systematic exploration of the model parameter space, unveiling some non-linear patterns and a counter-productive reaction of users to the disruption in terms of congestion for some scenarios.
 
 
-%\section{Stated preferences survey}
+\section{Stated preferences survey}
 
 %Notre but est de déterminer si l’accès à l’information sur le temps d’attente lors d’une perturbation pour les usagers est utile ou non. Pour commencer nous établissons un périmètre d’étude. Dans notre cas nous nous intéressons au RER A, il nous faut cependant réduire notre périmètre pour nous concentrer sur une zone plus précise. Nous souhaitons vérifier l’impact sur le réseau, pour cela nous choisissons donc des stations qui soient suffisamment maillées entre elles pour pouvoir dessiner un “mini-réseau”. Le but est de construire notre étude pour un trajet s’effectuant d’un point A à un point B. De plus, afin de s’assurer que les usagers effectuent le trajet qui nous intéresse, et par simplification de notre “mini-réseau”, nous devons choisir deux stations proches l’une de l’autre. Nous étudierons donc ici le report modal (ou le reroutage) en cas de situation perturbée sur la ligne du RER.
 
@@ -61,7 +61,7 @@ We first proceeded to a small size stated preferences survey %\citep{kroes1988st
 
 %%%%%%%%%%%%
 \begin{figure}[t]\vspace*{4pt}
-\centerline{\includegraphics[width=0.45\linewidth]{figures/Fig1.png}}
+\centerline{\includegraphics[width=\linewidth]{figures/Fig1.png}}
 \caption{Results of the stated preference survey. \textit{(Left)} Number of times a month users experience a disruption; \textit{(Middle)} Behavior of users when no information is given; \textit{(Right)} Behavior of users when a 10 minutes traffic stop is announced.\label{fig:fig1}}
 \end{figure}
 %%%%%%%%%%%%
@@ -70,23 +70,23 @@ We surveyed a total of $N=48$ users, among which a subsample of $N=27$ were regu
 
 
 
-%\section{Model description and exploration}
+\section{Model description}
 
 The agent-based model is based on two types of agents: users and RER trains. The simulated segment of the network is included for the main mode (RER train) and alternative modes (metro, bus, taxi, bike, walking). Main mode is simulated in full granularity, i.e. including train boarding, train capacity and train alighting. Other modes are simulated as queues with a given capacity. One simulation covers peak hours (180 time steps) with stationary Poisson arrival of users for each mode. At each time step: (i) users waiting for a train evaluate a discrete choice utility difference (between waiting and shifting to an other mode) given by $U_i = \beta_c \cdot c + \beta_{\tau} \tau$ where $c$ is perceived congestion given by the current number of user waiting (normalized by platform capacity) and $\tau$ is perceived time proportional to user current travel time (time since departure) and current waiting time between trains, and switch mode accordingly with a probability of $p_i = 1 / (1 + \exp \Delta U_i)$ and with fixed probabilities across other modes; (ii) next train possibly enter station and users board at a given speed and given train capacity, while users alights at the end of the segment if a train is in station; (iii) train queue on the segment is simulated with proper speeds; (iv) other modes are simulated as queues with a given user capacity. Model results are assessed with indicators giving the average travel time and average congestion over the peak hour and all users.
 
 %%%%%%%%%%%%%
-%\begin{figure}[t]\vspace*{4pt}
-%\centerline{\includegraphics[width=\linewidth]{figures/Fig2.png}}
-%\caption{Model interface}
-%\end{figure}
+\begin{figure}[t]\vspace*{4pt}
+\centerline{\includegraphics[width=\linewidth]{figures/Fig2.png}}
+\caption{Model interface}
+\end{figure}
 %%%%%%%%%%%%
 
-%\section{Model exploration}
+\section{Model exploration}
 
 
 %%%%%%%%%%%%
 \begin{figure}[t]\vspace*{4pt}
-\centerline{\includegraphics[width=0.6\linewidth]{figures/Fig3.png}}
+\centerline{\includegraphics[width=\linewidth]{figures/Fig3.png}}
 \caption{Model exploration results. \textit{(Left)} Average congestion as a function of $\beta_c$, for varying $\beta_{\tau}$ (colour), train interval (columns) and train capacity (rows); \textit{(Right)} Average travel time for same parameter values.\label{fig:fig3}}
 \end{figure}
 %%%%%%%%%%%%
