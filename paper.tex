@@ -29,7 +29,7 @@
 
 
 \begin{abstract}
-Modal shift in public transport as a consequence of a disruption on a line has in some cases unforeseen consequences such as an increase in congestion in the rest of the network. How information is provided to users and their behavior plays a central role in such configurations. We introduce here a simple and stylised agent-based model aimed at understanding the impact of behavioural parameters on modal shift. The model is applied on a case study based on a stated preference survey for a segment of Paris suburban train network. We systematically explore the parameter space and show non-trivial patterns of congestion for some values of discrete choice parameters linked to perceived wait time and congestion. We also apply a genetic optimization algorithm to the model to search for optimal compromises between congestion in different modes.
+Modal shift in public transport as a consequence of a disruption on a line has in some cases unforeseen consequences such as an increase in congestion in the rest of the network. How information is provided to users and their behavior plays a central role in such configurations. We introduce here a simple and stylised agent-based model aimed at understanding the impact of behavioural parameters on modal shift. The model is applied on a case study based on a stated preference survey for a segment of Paris suburban train network. We systematically explore the parameter space and show non-trivial patterns of congestion for some values of discrete choice parameters linked to perceived wait time and congestion. We also apply a genetic optimisation algorithm to the model to search for optimal compromises between congestion in different modes.
 \end{abstract}
 
 \begin{keyword}
@@ -109,38 +109,60 @@ Model results are assessed with indicators giving the average travel time and av
 
 The model has several parameters which can be set with realistic values (see setup below), while others remain variables of interest which influence on model behavior will be studied in numerical experiments. In particular, varying parameters are the behavioural parameters $\beta_c$ and $\beta_{\tau}$, time interval between train $I$ and train capacity $C$.
 
-%%%%%%%%%%%%%
-\begin{figure}[t]\vspace*{4pt}
-\centerline{\includegraphics[width=\linewidth]{figures/Fig2.png}}
-\caption{Model interface}
-\end{figure}
-%%%%%%%%%%%%
+
 
 \section{Results}
 
-
-%%%%%%%%%%%%
-\begin{figure}[t]\vspace*{4pt}
-\centerline{\includegraphics[width=\linewidth]{figures/Fig3.png}}
-\caption{Model exploration results. \textit{(Left)} Average congestion as a function of $\beta_c$, for varying $\beta_{\tau}$ (colour), train interval (columns) and train capacity (rows); \textit{(Right)} Average travel time for same parameter values.\label{fig:fig3}}
-\end{figure}
-%%%%%%%%%%%%
 
 
 \subsection{Implementation and model setup}
 
 
-The model is implemented in NetLogo which is specifically suited for such agent-based simulations. The open-source code of the model and results is available as a git repository at \url{https://github.com/JusteRaimbault/ReportMasse}. We systematically explored model parameter space by using the OpenMOLE model exploration software \citep{reuillon2013openmole}, which allows embedding any type of model, provides a seamless access to high performance computing infrastructures, and integrates state-of-the-art model validation and exploration methods.
+The model is implemented in NetLogo which is a platform and programming language specifically suited for such agent-based simulations \citep{tisue2004netlogo}. We show a visualisation of model interface in Fig.~\ref{fig:fig2}. The open-source code of the model and results is available as a git repository at \url{https://github.com/JusteRaimbault/ReportMasse}. We systematically explored model parameter space by using the OpenMOLE model exploration software \citep{reuillon2013openmole}, which allows embedding any type of model, provides a seamless access to high performance computing infrastructures, and integrates state-of-the-art model validation and exploration methods.
+
+Several model parameters are set following real world values. Respective speed for each mode for example correspond to travel times for the segment in an uncongested setting. Mode capacities also have realistic values (for example for Metro 1, 700 users per train with 5 trains on the segment). We take a boarding speed for the RER of 1000 users per minute (MI09 trains have a total capacity of 2600 users and stop for not more than 1min30sec during peak hours). A train takes 4min for the segment. We assume a maximal waiting time in station of 2 minutes. We fix the user arrival rate $\lambda_{RER} = 100$ in experiments, to study borderline scenarios in terms of congestion. Finally, user transfer time between modes is taken as 5 minutes.
+
+%%%%%%%%%%%%%
+\begin{figure}%[t]\vspace*{4pt}
+\begin{mdframed}
+\centerline{\includegraphics[width=\linewidth]{figures/Fig2.png}}
+\end{mdframed}
+\caption{Model interface. Main varying parameters are included as sliders, while mode queues are visualised in a spatialised manner and as a load plot in time. Various numerical indicators are provided.\label{fig:fig2}}
+\end{figure}
+%%%%%%%%%%%%
 
 \subsection{Parameter space exploration}
 
 We run 10 stochastic replications of the model, for parameters $\beta_c,\beta_{\tau}$, train capacity $C$, and train arrival interval $I$ varying within a grid. This corresponds to $\simeq 24,000$ runs of the model. We show in Fig.~\ref{fig:fig3} the variation of average travel time and congestion as a function of $\beta_c$. We find an interesting non-linear behavior of travel time (Fig.~\ref{fig:fig3}, Right panel) for low values of $\beta_{\tau}$ (dark blue, right column), where travel time is maximal around a neutral position of users to congestion: in that context of a low tolerance to waiting, either a low or high tolerance to congestion are better than being indifferent. Larger values of $\beta_{\tau}$ induce a decreasing travel time as a function of $\beta_c$ (the more users are not tolerant to congestion, the lower the travel time), and similarly travel time is decreasing as a function of $\beta_{\tau}$. Regarding the congestion indicator (Left panel of Fig.~\ref{fig:fig3}), it increases with both discrete choice parameters but differently in the various disruption scenarios.
 
+%%%%%%%%%%%%
+\begin{figure}%[t]\vspace*{4pt}
+\centerline{\includegraphics[width=\linewidth]{figures/Fig3.png}}
+\caption{Model exploration results. \textit{(Left)} Average congestion as a function of $\beta_c$, for varying $\beta_{\tau}$ (colour), train interval (columns) and train capacity (rows); \textit{(Right)} Average travel time for same parameter values.\label{fig:fig3}}
+\end{figure}
+%%%%%%%%%%%%
+
+\subsection{Model optimisation}
+
+
+We then propose to apply the model in an optimisation context. We use a genetic algorithm for multi-objective optimisation (more precisely the NSGA2 algorithm implemented into the OpenMOLE platform) to search for compromises between congestion in the train and congestion in alternative modes. We run the algorithm in a congested context (arrival rate $\lambda_{RER} = 100$, train capacity $C=500$ and train interval $I=5$), with free parameters $\beta_c$ and $\beta_{\tau}$. Optimisation objectives are the average congestion in the RER and the average congestion in other modes.
+
+Simulation results obtained with an algorithm population of $\mu = 200$ after 2000 generations are shown in Fig.~\ref{fig:fig4}. We find that acting on different dimensions of user behavior can mitigate the different dimensions of congestion. More precisely, a Pareto front is obtained between congestion in the RER and congestion in the other modes. Congestion in the RER can be minimised, at the detriment of other modes. This occurs when congestion and perceived time parameters have both high values. On the contrary, a low congestion in other modes implies a high tolerance of users and a high congestion in the RER. The shape of the Pareto front is interesting, witnessing two linear regimes. A good compromise is thus found at the breakpoint. At this point, users are rather tolerant to perceived time (negative $\beta_{\tau}$ values) but can have various behaviours regarding congestion. This shows that mitigating congestion can be achieved by acting on user behaviour, and that a compromise for the multimodal network can be found.
+
+
+%%%%%%%%%%%%
+\begin{figure}%[t]\vspace*{4pt}
+\centerline{\includegraphics[width=0.75\linewidth]{figures/Fig4.png}}
+\caption{Model optimisation. We plot the Pareto front of compromise points between the two optimisation objectives. Point colour level gives $\beta_{\tau}$ while point size gives $\beta_c$.\label{fig:fig4}}
+\end{figure}
+%%%%%%%%%%%%
 
 \section{Discussion}
 
 
-These preliminary results show how this model can be applied to explore complex congestion patterns in the stylised network following interactions between different components of user behavior. Work in progress includes the application of a genetic algorithm for optimization to the model with the aim to explore compromises between congestion in the train and congestion in alternative modes.
+Our simulation results show how this model can be applied to explore complex congestion patterns in the stylised network following interactions between different components of user behavior. Our model can be applied to the simulation of disruption events, and possible scenarios to improve network resilience. It can also be applied to test interventions to mitigate congestion in targeted modes. Its advantage in comparison to more complicated models relies on its simplicity, which allows systematic explorations of the parameter space and more advanced numerical experiments as we illustrated above.
+
+Several developments can furthermore be considered. The behavioural model is rather simple, and as the implementation is generic, other functions or more complicated processes can be tested. The variables we used in the discrete choice utility are only proxies of perceived information, and how to account for the information effectively received by the users depending on the context remains an open question. Besides, the possible mitigation of congestion through interventions acting on the provided information may raise ethical issues - how to ensure an overall optimisation while remaining fair to all users. Finally, a more data-driven version of the model, including estimated discrete choice parameters, would be an interesting path to explore, assuming that a further survey and data collection is possible.
 
 
 
