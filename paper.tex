@@ -65,7 +65,6 @@ The rest of this paper is organised as follows: we first describe an exploratory
 
 \section{Stated preferences survey}
 
-%Notre but est de déterminer si l’accès à l’information sur le temps d’attente lors d’une perturbation pour les usagers est utile ou non. Pour commencer nous établissons un périmètre d’étude. Dans notre cas nous nous intéressons au RER A, il nous faut cependant réduire notre périmètre pour nous concentrer sur une zone plus précise. Nous souhaitons vérifier l’impact sur le réseau, pour cela nous choisissons donc des stations qui soient suffisamment maillées entre elles pour pouvoir dessiner un “mini-réseau”. Le but est de construire notre étude pour un trajet s’effectuant d’un point A à un point B. De plus, afin de s’assurer que les usagers effectuent le trajet qui nous intéresse, et par simplification de notre “mini-réseau”, nous devons choisir deux stations proches l’une de l’autre. Nous étudierons donc ici le report modal (ou le reroutage) en cas de situation perturbée sur la ligne du RER.
 
 We first proceeded to a small size stated preferences survey \citep{kroes1988stated}, in order to have a qualitative overview of processes needed in the model and to have a case study for model application. \cite{martin2016strategies} have indeed shown that there exists a high heterogeneity in user reaction to disruptions. We choose to study the line A of the \emph{RER} suburban train in Paris, which has the highest load in the region and has a non-negligible frequency of disruption. We focus on a subpart of the network, in order to sample users which have a higher chance of realising a given origin-destination pattern, and for which several modal alternatives exist. Therefore, the segment \emph{Etoile-La D{\'e}fense} was chosen, as it features alternative trips with the \emph{Metro Line 1} and several bus lines.
 
@@ -77,9 +76,11 @@ We first proceeded to a small size stated preferences survey \citep{kroes1988sta
 \end{figure}
 %%%%%%%%%%%%
 
-We surveyed a total of $N=48$ users, among which a subsample of $N=27$ were regular users for which the full questionnaire was given. Main results which can inform our model context are shown in Fig.~\ref{fig:fig1}. We first confirm that disruptions are indeed frequent on the line, as around 50\% of users experience a disruption at least twice a month. We then find that under no information, user behavior is heterogeneous and a large part shifts to alternative itineraries. Finally, when users are informed of a 10 minutes disruption, on the contrary more than 75\% decide to wait on place. Therefore, the model must include various modal shifts, but also take into account how perceived wait time will influence user choice.
+We surveyed a total of $N=48$ users, among which a sub-sample of $N=27$ were regular users for which the full questionnaire was given. Surveys were realised on peak hours (between 7am and 9am) of weekdays in January 2021, on the platform of the \emph{Etoile} station. The exact survey which was used (in French) is available on the open repository of the project (see model implementation below).
 
-This survey was designed in an exploratory manner and could not be continued on a larger scale for various practical reasons. Our sample size thus remains relatively small and this part of the study must be considered as qualitative. Significantly larger sample sizes are needed to obtain robust inferential results, for example to forecast travel demand \citep{horvath2015estimation} or to estimate discrete choice parameters \citep{bliemer2009efficiency}. In our case, we consider the simulation model as a tool to go beyond such data limitations and still study stylised behavioural processes.
+Main results which can inform our model context are shown in Fig.~\ref{fig:fig1}. We first confirm that disruptions are indeed frequent on the line, as around 50\% of users experience a disruption at least twice a month. We then find that under no information, user behavior is heterogeneous and a large part shifts to alternative itineraries. Finally, when users are informed of a 10 minutes disruption, on the contrary more than 75\% decide to wait on place. Therefore, the model must include various modal shifts, but also take into account how perceived wait time will influence user choice.
+
+This survey was designed in an exploratory manner as a pilot study, and could not be continued on a larger scale for various practical reasons. Our sample size thus remains relatively small and this part of the study must be considered as qualitative. Significantly larger sample sizes are needed to obtain robust inferential results, for example to forecast travel demand \citep{horvath2015estimation} or to estimate discrete choice parameters \citep{bliemer2009efficiency}. In our case, we consider the simulation model as a tool to overcome such data limitations and still study stylised behavioural processes using qualitative insights from our survey data.
 
 
 \section{Model description}
@@ -94,7 +95,7 @@ More precisely, the model simulates sequentially the following processes at each
 	\begin{equation} 
 	\Delta U = \beta_c \cdot c + \beta_{\tau} \tau
 	\end{equation}
-	where $c$ is perceived congestion given by the current number of user waiting (normalised by platform capacity) and $\tau$ is perceived time proportional to user current travel time (time since departure) and current waiting time between trains. $\beta_c$ and $\beta_{\tau}$ are thus behavioural parameters capturing the influence of perceived time and congestion on user behaviour.
+	where $c$ is perceived congestion given by the current number of user waiting normalised by platform capacity (which corresponds in our case only to a parameter rescaling as we consider a single station); $\tau$ is perceived time that we assume proportional to user current travel time (time since departure of the user trip) and current waiting time between trains. $\beta_c$ and $\beta_{\tau}$ are thus behavioural parameters capturing the influence of perceived time and congestion on user behaviour. Note that a model generalisation with a broader scope (more stations for example) will have to introduce more accurate proxies for this processes or other behavioural aspects.
 	\item These users can then switch mode with the corresponding discrete choice probability probability given by 
 	\begin{equation}
 	p = 1 / (1 + \exp \Delta U)
@@ -109,6 +110,7 @@ Model results are assessed with indicators giving the average travel time and av
 
 The model has several parameters which can be set with realistic values (see setup below), while others remain variables of interest which influence on model behavior will be studied in numerical experiments. In particular, varying parameters are the behavioural parameters $\beta_c$ and $\beta_{\tau}$, time interval between train $I$ and train capacity $C$.
 
+The discrete choice function does not include control variables such as differences between modes in ticket price, level of service, quality of information. These are implicitly taken into account in our model through the empirical values of modal shift observed in the survey, and could be included in a refined version of the model.
 
 
 \section{Results}
@@ -127,7 +129,7 @@ Several model parameters are set following real world values. Respective speed f
 \begin{mdframed}
 \centerline{\includegraphics[width=\linewidth]{figures/Fig2.png}}
 \end{mdframed}
-\caption{Model interface. Main varying parameters are included as sliders, while mode queues are visualised in a spatialised manner and as a load plot in time. Various numerical indicators are provided.\label{fig:fig2}}
+\caption{Model interface. Main varying parameters are included as sliders, while mode queues are visualised in a spatialised manner and as a plot showing the load for each mode in time. Various numerical indicators are provided.\label{fig:fig2}}
 \end{figure}
 %%%%%%%%%%%%
 
@@ -162,9 +164,17 @@ Simulation results obtained with an algorithm population of $\mu = 200$ after 20
 
 Our simulation results show how this model can be applied to explore complex congestion patterns in the stylised network following interactions between different components of user behavior. Our model can be applied to the simulation of disruption events, and possible scenarios to improve network resilience. It can also be applied to test interventions to mitigate congestion in targeted modes. Its advantage in comparison to more complicated models relies on its simplicity, which allows systematic explorations of the parameter space and more advanced numerical experiments as we illustrated above.
 
-Several developments can furthermore be considered. The behavioural model is rather simple, and as the implementation is generic, other functions or more complicated processes can be tested. The variables we used in the discrete choice utility are only proxies of perceived information, and how to account for the information effectively received by the users depending on the context remains an open question. Besides, the possible mitigation of congestion through interventions acting on the provided information may raise ethical issues - how to ensure an overall optimisation while remaining fair to all users. Finally, a more data-driven version of the model, including estimated discrete choice parameters, would be an interesting path to explore, assuming that a further survey and data collection is possible.
+Several developments can furthermore be considered. The behavioural model is rather simple, and as the implementation is generic, other functions or more complicated processes can be tested. The variables we used in the discrete choice utility are only proxies of perceived information, and how to account for the information effectively received by the users depending on the context remains an open question \citep{gao2018trip}. The disutility due to perceived travel time is in our case simply the sum of previous travel time and announced waiting time: studying other functions and aspects is an other interesting development of the model. For example, including congestion within the trains may be crucial regarding recent health concerns linked to crowding in closed spaces \citep{raimbault2021estimating}.
+
+Besides, the possible mitigation of congestion through interventions acting on the provided information may raise ethical issues - how to ensure an overall optimisation while remaining fair to all users: it was shown in other modes such as car travel that inequalities in congestion may rise from path shift due to live information \citep{cabannes2017impact}. We also assumed on this issue of access to information that users did not necessarily had access to some synthetic information on all alternatives (with a web application for example) and that there was no unified mobility service. Exploring the impact of such aspects on behavioural and congestion patterns is also a potential refinement of the model.
+
+Finally, a more data-driven version of the model, including estimated discrete choice parameters, would be an interesting path to explore, assuming that a further survey and data collection is possible. This may also imply to include control variables in discrete choices utilities to account for differences between modes for example in terms of price or level of service.
 
 
+
+\section{Conclusion}
+
+The study of modal shift following a disruption in public transport networks is an important aspect to ensure resilience and a high level of service. We introduced in this paper the basis for a simple agent-based model focused on user decision based on perceived congestion and waiting time. We showed how the model can be used to explore the interaction between different behavioural components of users, and to optimise the congestion in different modes. Our model is open source and aimed at being extended and applied to other case studies. Systematic model exploration and validation should provide both practical results in terms of transport management, but also more general results on generic and specific processes in modal shift.
 
 
 %% References
@@ -180,7 +190,6 @@ Several developments can furthermore be considered. The behavioural model is rat
 
 %
 
-%\vspace{-0.5cm}
 
 \bibliographystyle{elsarticle-harv}
 \bibliography{biblio.bib}

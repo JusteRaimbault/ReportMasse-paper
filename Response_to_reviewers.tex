@@ -1,0 +1,73 @@
+
+\documentclass[10pt]{article}
+
+\usepackage[margin=2cm]{geometry}
+
+
+\begin{document}
+
+\section*{Response to reviewers}
+
+\subsection*{Reviewer 1}
+
+% The paper introduces an agent-based model aimed at understanding the impact of behavioural parameters on modal shift. The model is applied on a case study based on a stated preference survey for a segment of Paris suburban train network. The research contributions are clearly stated. The methodology is appropriate. The main concern is with sample size; 48 users seem rather short. The paper misses a separate chapter dedicated to conclusions. The formatting rules of the template should be verified and implemented.
+
+\noindent\textit{The main concern is with sample size; 48 users seem rather short.}
+
+\noindent$\rightarrow$ The empirical study was a small pilot that could not be continued - thus the modeling approach to still be able to exploit it. This point was emphasised again in the final paper.
+
+\medskip
+
+\noindent\textit{The paper misses a separate chapter dedicated to conclusions.}
+
+\noindent$\rightarrow$ A conclusion section was added.
+
+\medskip
+
+\noindent\textit{The formatting rules of the template should be verified and implemented.}
+
+\noindent$\rightarrow$ The EWGT 2021 Latex template provided was used to format the final paper.
+
+
+\bigskip
+
+\subsection*{Reviewer 2}
+
+
+% The authors propose an agent-based model for modal shift in public transport. The subject of the paper is interesting with evident potential practical implications.
+%The weakest part of the article is that the model parameters are built on a very small sample of passengers. However, this limitation is clearly assumed by the authors.
+%Despite realizing that the advantage of the approach is the simplicity, the methodology section is not clear in some parts. For example:
+% - On which the authors rely to ensure “that perceived congestion given by the current number of user waiting” must be normalized by the platform capacity?
+% - How is cross demand elasticity of other modes considered? (e.g., in terms of ticketing, frequency and information quality for other modes?)
+%- Is the existence of a mobility service that covers all the alternatives assumed?
+%- How the perceived value of travel time varies regarding the waiting time at the stop and the journey time itself? Is the cost of the loss of comfort related to crowding (e.g., pandemic effects) possible to be simulated?
+
+%Considering, the potential applicability of the model based on open source and the honesty about the level of development (still premature), I recommend its presentation at the EWGT. Before being accepted, the article should be improved by clarifying some methodological aspects, adding conclusions, and improving formatting according EWGT template rules.
+
+\noindent\textit{On which the authors rely to ensure ``that perceived congestion given by the current number of user waiting'' must be normalized by the platform capacity?}
+
+\noindent$\rightarrow$ This normalisation is in our case a convenience rescaling to have comparable scales for each discrete choice parameter, and does not impact results as we have a single boarding station with fixed capacity in our model. Measuring effective perceived congestion in multiple stations and users is a difficult problem - this was emphasised in the paper discussion.
+
+\medskip
+
+\noindent\textit{How is cross demand elasticity of other modes considered? (e.g., in terms of ticketing, frequency and information quality for other modes?)}
+
+\noindent$\rightarrow$ These aspects are implicitly included in the fixed coefficients for modal shift but are not explicitly included in the model. A model refinement could consider such developments - this was added in the model description and paper discussion.
+
+\medskip
+
+\noindent\textit{Is the existence of a mobility service that covers all the alternatives assumed?}
+
+\noindent$\rightarrow$ We do not explicitly assume a unified mobility service (RER/subway are a distinct service from bikes and taxis for example) nor a single application synthesising all the information available on all alternatives. The exploration of this aspect was added as a potential development.
+
+\medskip
+
+\noindent\textit{How the perceived value of travel time varies regarding the waiting time at the stop and the journey time itself? Is the cost of the loss of comfort related to crowding (e.g., pandemic effects) possible to be simulated?}
+
+\noindent$\rightarrow$ In our case, perceived value of travel time is simply the total travel time plus the expected waiting time given by current information on the platform. Exploring diverse functions and aspects for this disutility such as crowding is indeed an interesting development, which was added in the discussion.
+
+
+
+
+
+\end{document}
